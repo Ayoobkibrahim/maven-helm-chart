@@ -1,6 +1,6 @@
 apiVersion: v2
-name: maven-app-helm
+name: maven-app
 description: A Helm chart for Maven Java Application
-type: Application
+type: application
 version: 0.1.0
 appVersion: "1.0"
