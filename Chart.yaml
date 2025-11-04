@@ -1,5 +1,6 @@
 apiVersion: v2
-name: maven-helm-chart
-description: A Helm chart for Kubernetes
+name: maven-app-helm
+description: A Helm chart for Maven Java Application
+type: Application
 version: 0.1.0
 appVersion: "1.0"
