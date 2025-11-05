@@ -1,43 +1,43 @@
 apiVersion: apps/v1
-kind : Deployment
+kind: Deployment
 metadata:
-    name: {{ include "maven-app.fullname" . }}
-    labels:
-        {{- include "maven-app.labels" . | nindent 4 }}
+  name: {{ include "maven-app.fullname" . }}
+  labels:
+    {{- include "maven-app.labels" . | nindent 4 }}
 spec:
-    replicas: {{ .Values.deployment.replicas }}
-    selector:
-        matchLabels:
-            {{- include "maven-app.selectorLabels" . | nindent 6 }}
-    template:
-        metadata: 
-            labels: 
-                {{- include "maven-app.selectorLabels" . | nindent 8 }}
-        spec:
-            containers:
-            - name: {{ .Chart.Name}}
-              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-              imagePullPolicy: {{ .Values.image.imagePullPolicy }}
-              ports: 
-              - name: http
-                containerPort: {{ .Values.deployment.containerPort}}
-                protocol: TCP
-              env:
-              {{- range .Values.env }}
-              - name: {{ .name }}
-                value: {{ .value | quote }}
-              {{- end }}
-              resources:
-                {{- toYaml .Values.resources | nindent 10 }}
-              livenessProbe: 
-                httpGet:
-                    path: /
-                    port: http
-                initialDelaySeconds: 30
-                periodSeconds: 10
-              readinessProbe: 
-                httpGet: 
-                    path: /
-                    port: http
-                initialDelaySeconds: 10
-                periodSeconds: 5
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      {{- include "maven-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "maven-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.deployment.containerPort }}
+              protocol: TCP
+          env:
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
