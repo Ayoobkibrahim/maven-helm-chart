@@ -1,4 +1,4 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind : Deployment
 metadata:
     name: {{ include "maven-app.fullname" . }}
@@ -39,5 +39,5 @@ spec:
                 httpGet: 
                     path: /
                     port: http
-                initalDelaySeconds: 10
+                initialDelaySeconds: 10
                 periodSeconds: 5

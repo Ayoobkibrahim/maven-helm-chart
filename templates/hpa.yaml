@@ -7,7 +7,7 @@ metadata:
         {{- include "maven-app.labels" . | nindent 4 }}
 spec:
     scaleTargetRef:
-        apiVersion: app/v1
+        apiVersion: apps/v1
         kind: Deployment
         name: {{ include "maven-app.fullname" . }}
     minReplicas: {{ .Values.hpa.minReplicas }}
